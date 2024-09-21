@@ -1,0 +1,33 @@
+version: '3.7'
+
+networks:
+  next-sso:
+    driver: bridge
+
+services:
+  postgresql:
+    container_name: db
+    restart: always
+    image: postgres:12.2
+    environment:
+      POSTGRES_DB: profile
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PG-DATA: /var/pkg/postgresql/notification_data
+    ports:
+      - "5432:5432"
+    networks:
+      - next-sso
+
+  sso-backend:
+    restart: always
+    depends_on:
+      - postgresql
+    build:
+      context: ..
+      dockerfile: ./build/package/backend.dockerfile
+    ports:
+      - "5001:5001"
+    networks:
+      - next-sso
+
