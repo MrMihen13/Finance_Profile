@@ -1,7 +1,7 @@
 github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak=
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
-github.com/MrMihen13/finance-protos v0.0.2 h1:ad9MDonT2Ey86np2PVjRk896eRMEnPCWrQYNgpsvGv8=
-github.com/MrMihen13/finance-protos v0.0.2/go.mod h1:8Gv/mfYb7SustLIPTqV8Qei1FUC/vhOjs30wri7N000=
+github.com/MrMihen13/finance-protos v0.2.0 h1:0M4Q5KYSURkF7F9+u4MacTLZtAJL7wDjPgtahWkXptY=
+github.com/MrMihen13/finance-protos v0.2.0/go.mod h1:5NGRVa/VIpsYuVk4BODKJgczO1EicNSZRUaLRMD6qnI=
 github.com/fatih/color v1.17.0 h1:GlRw1BRJxkpqUCBKzKOw098ed57fEsKeNjpTe3cSjK4=
 github.com/fatih/color v1.17.0/go.mod h1:YZ7TlrGPkiz6ku9fK3TLD/pl3CpsiFyu8N92HLgmosI=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=

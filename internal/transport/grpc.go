@@ -3,7 +3,7 @@ package transport
 import (
 	"context"
 	"errors"
-	prfgrpc "github.com/MrMihen13/finance-protos/gen/go/profile"
+	_grpc "github.com/MrMihen13/finance-protos/gen/go/profile"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"log/slog"
@@ -19,7 +19,7 @@ type service interface {
 }
 
 type Server struct {
-	prfgrpc.UnimplementedProfileServer
+	_grpc.UnimplementedProfileServer
 	log     *slog.Logger
 	profile service
 }
@@ -29,10 +29,10 @@ func NewServer(log *slog.Logger, srv service) *Server {
 }
 
 func (s *Server) Register(gRPC *grpc.Server) {
-	prfgrpc.RegisterProfileServer(gRPC, s)
+	_grpc.RegisterProfileServer(gRPC, s)
 }
 
-func (s *Server) Create(_ context.Context, req *prfgrpc.RegisterRequest) (*prfgrpc.ProfileItem, error) {
+func (s *Server) Create(_ context.Context, req *_grpc.RegisterRequest) (*_grpc.ProfileItem, error) {
 	email := req.GetEmail()
 
 	if !validator.IsEmailValid(email) {
@@ -43,14 +43,14 @@ func (s *Server) Create(_ context.Context, req *prfgrpc.RegisterRequest) (*prfgr
 	if err != nil {
 		return nil, err
 	}
-	return &prfgrpc.ProfileItem{
-		Uuid:  profile.ID.String(),
+	return &_grpc.ProfileItem{
+		Id:    profile.ID.String(),
 		Email: profile.Email,
 	}, nil
 }
 
-func (s *Server) Get(_ context.Context, req *prfgrpc.GetRequest) (*prfgrpc.ProfileItem, error) {
-	rawID := req.GetUuid()
+func (s *Server) Get(_ context.Context, req *_grpc.GetRequest) (*_grpc.ProfileItem, error) {
+	rawID := req.GetId()
 	id, err := uuid.Parse(rawID)
 	if err != nil {
 		return nil, err
@@ -59,20 +59,20 @@ func (s *Server) Get(_ context.Context, req *prfgrpc.GetRequest) (*prfgrpc.Profi
 	if err != nil {
 		return nil, err
 	}
-	return &prfgrpc.ProfileItem{
-		Uuid:  profile.ID.String(),
+	return &_grpc.ProfileItem{
+		Id:    profile.ID.String(),
 		Email: profile.Email,
 	}, nil
 }
 
-func (s *Server) Update(_ context.Context, req *prfgrpc.UpdateRequest) (*prfgrpc.ProfileItem, error) {
+func (s *Server) Update(_ context.Context, req *_grpc.UpdateRequest) (*_grpc.ProfileItem, error) {
 	newEmail := req.GetNewEmail()
 
 	if !validator.IsEmailValid(newEmail) {
 		return nil, errors.New("invalid email")
 	}
 
-	rawId := req.GetUuid()
+	rawId := req.GetId()
 
 	id, err := uuid.Parse(rawId)
 	if err != nil {
@@ -84,23 +84,23 @@ func (s *Server) Update(_ context.Context, req *prfgrpc.UpdateRequest) (*prfgrpc
 		return nil, err
 	}
 
-	return &prfgrpc.ProfileItem{
-		Uuid:  profile.ID.String(),
+	return &_grpc.ProfileItem{
+		Id:    profile.ID.String(),
 		Email: profile.Email,
 	}, nil
 }
 
-func (s *Server) Delete(_ context.Context, req *prfgrpc.DeleteRequest) (*prfgrpc.DeleteResponse, error) {
-	rawID := req.GetUuid()
+func (s *Server) Delete(_ context.Context, req *_grpc.DeleteRequest) (*_grpc.DeleteResponse, error) {
+	rawID := req.GetId()
 
 	id, err := uuid.Parse(rawID)
 	if err != nil {
-		return &prfgrpc.DeleteResponse{Status: prfgrpc.StatusType_FAILED}, err
+		return &_grpc.DeleteResponse{Status: _grpc.StatusType_FAILED}, err
 	}
 
 	if err := s.profile.DeleteByID(id); err != nil {
-		return &prfgrpc.DeleteResponse{Status: prfgrpc.StatusType_FAILED}, err
+		return &_grpc.DeleteResponse{Status: _grpc.StatusType_FAILED}, err
 	}
 
-	return &prfgrpc.DeleteResponse{Status: prfgrpc.StatusType_SUCCESS}, nil
+	return &_grpc.DeleteResponse{Status: _grpc.StatusType_SUCCESS}, nil
 }

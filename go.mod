@@ -3,17 +3,17 @@ module profile
 go 1.22.2
 
 require (
-	github.com/MrMihen13/finance-protos v0.0.2
+	github.com/MrMihen13/finance-protos v0.2.0
 	github.com/fatih/color v1.17.0
 	github.com/google/uuid v1.6.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
+	github.com/lib/pq v1.10.9
 	google.golang.org/grpc v1.65.0
 )
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
-	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	golang.org/x/net v0.25.0 // indirect
