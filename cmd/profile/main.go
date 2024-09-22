@@ -16,10 +16,9 @@ func main() {
 	log := setupLogger(cfg.Env)
 	postgres := database.NewPostgres(log, cfg.DB.Host, cfg.DB.Port, cfg.DB.Username, cfg.DB.Password,
 		cfg.DB.Name)
-	db := postgres.MustConnect()
-	postgres.Ping()
+	postgres.MustConnect()
 
-	application := app.New(log, cfg.GRPC.Port, db)
+	application := app.New(log, cfg.GRPC.Port, postgres.GetDB())
 
 	go func() { application.GRPC.MustRun() }()
 
